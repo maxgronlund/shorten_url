@@ -9,22 +9,11 @@ defmodule ShortenUrlWeb.ShortUrlControllerTest do
   @create_attrs %{
     url: "http://very-long-url.com"
   }
-  # @update_attrs %{
-  #   short: "some updated short",
-  #   url: "some updated long"
-  # }
   @invalid_attrs %{url: nil}
 
   setup %{conn: conn} do
     {:ok, conn: put_req_header(conn, "accept", "application/json")}
   end
-
-  # describe "index" do
-  #   test "lists all short_urls", %{conn: conn} do
-  #     conn = get(conn, ~p"/api/short_urls")
-  #     assert json_response(conn, 200)["data"] == []
-  #   end
-  # end
 
   describe "Redirect to long url" do
     test "When an existing short_url is found", %{conn: conn} do
@@ -61,47 +50,4 @@ defmodule ShortenUrlWeb.ShortUrlControllerTest do
       assert json_response(conn, 422)["errors"] == %{"url" => ["can't be blank"]}
     end
   end
-
-  # describe "update short_url" do
-  #   setup [:find_or_create_short_url]
-
-  #   test "renders short_url when data is valid", %{
-  #     conn: conn,
-  #     short_url: %ShortUrl{id: id} = short_url
-  #   } do
-  #     conn = put(conn, ~p"/api/short_urls/#{short_url}", short_url: @update_attrs)
-  #     assert %{"id" => ^id} = json_response(conn, 200)["data"]
-
-  #     conn = get(conn, ~p"/api/short_urls/#{id}")
-
-  #     assert %{
-  #              "id" => ^id,
-  #              "long" => "some updated long",
-  #              "short" => "some updated short"
-  #            } = json_response(conn, 200)["data"]
-  #   end
-
-  #   test "renders errors when data is invalid", %{conn: conn, short_url: short_url} do
-  #     conn = put(conn, ~p"/api/short_urls/#{short_url}", short_url: @invalid_attrs)
-  #     assert json_response(conn, 422)["errors"] != %{}
-  #   end
-  # end
-
-  # describe "delete short_url" do
-  #   setup [:find_or_create_short_url]
-
-  #   test "deletes chosen short_url", %{conn: conn, short_url: short_url} do
-  #     conn = delete(conn, ~p"/api/short_urls/#{short_url}")
-  #     assert response(conn, 204)
-
-  #     assert_error_sent 404, fn ->
-  #       get(conn, ~p"/api/short_urls/#{short_url}")
-  #     end
-  #   end
-  # end
-
-  # defp find_or_create_short_url(_) do
-  #   short_url = short_url_fixture()
-  #   %{short_url: short_url}
-  # end
 end

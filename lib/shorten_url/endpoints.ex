@@ -26,12 +26,26 @@ defmodule ShortenUrl.Endpoints do
     Repo.get_by!(ShortUrl, short_url: url)
   end
 
+  @doc """
+  Gets a single short_url.
+
+  Return `nil` if the Short url does not exist.
+
+  ## Examples
+
+      iex> get_short_url!(123)
+      %ShortUrl{}
+
+      iex> get_short_url(456)
+      ** (nil)
+
+  """
   def get_short_url(url) do
     Repo.get_by(ShortUrl, short_url: url)
   end
 
   @doc """
-  Creates a short_url.
+  Find or creates a short_url.
 
   ## Examples
 
@@ -54,7 +68,7 @@ defmodule ShortenUrl.Endpoints do
     end
   end
 
-  def create_short_url(attrs) do
+  defp create_short_url(attrs) do
     %ShortUrl{}
     |> ShortUrl.changeset(attrs)
     |> Repo.insert()

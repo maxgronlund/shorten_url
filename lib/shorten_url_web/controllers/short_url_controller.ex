@@ -7,11 +7,6 @@ defmodule ShortenUrlWeb.ShortUrlController do
 
   action_fallback ShortenUrlWeb.FallbackController
 
-  # def index(conn, _params) do
-  #   short_urls = Endpoints.list_short_urls()
-  #   render(conn, :index, short_urls: short_urls)
-  # end
-
   def create(conn, %{"url" => nil}) do
     conn
     |> put_status(:unprocessable_entity)
@@ -31,14 +26,6 @@ defmodule ShortenUrlWeb.ShortUrlController do
     end
   end
 
-  # defp host_port(conn) do
-  #   conn.host <> ":" <> Integer.to_string(conn.port)
-  # end
-
-  # defp prepend_host_port(host_port, short_url) do
-  #   ShortUrl.prepend_host_port(short_url, host_port)
-  # end
-
   def show(conn, %{"id" => short_url}) do
     url = UrlHelper.host_port_and_path(conn, short_url)
 
@@ -54,20 +41,4 @@ defmodule ShortenUrlWeb.ShortUrlController do
         |> redirect(external: long_url)
     end
   end
-
-  # def update(conn, %{"id" => id, "short_url" => short_url_params}) do
-  #   short_url = Endpoints.get_short_url!(id)
-
-  #   with {:ok, %ShortUrl{} = short_url} <- Endpoints.update_short_url(short_url, short_url_params) do
-  #     render(conn, :show, short_url: short_url)
-  #   end
-  # end
-
-  # def delete(conn, %{"id" => id}) do
-  #   short_url = Endpoints.get_short_url!(id)
-
-  #   with {:ok, %ShortUrl{}} <- Endpoints.delete_short_url(short_url) do
-  #     send_resp(conn, :no_content, "")
-  #   end
-  # end
 end
