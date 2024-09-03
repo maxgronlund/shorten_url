@@ -100,7 +100,13 @@ I abstracted the fetching of host and port into the `UrlHelper`. This way, it sh
 ### Manual Testing
 Automated tests and TDD are great and make me work faster, but... there's always a but.
 I fired up Postman and tested it by hand. Yes, I found that I could crash the application by sending bad data and that some of the JSON wasn't formatted as expected.
+### Test with curl
+```
+curl -X POST http://localhost:4000/shorten-url \
+-H "Content-Type: application/json" \
+-d '{"url": "http://very-long-url.com"}'
 
+```
 ### Conclusion
 I spent way more time than 5 hours—more like 10—but I got carried away with this fun little assignment.
 In my defense, it's been a year since I last worked with Elixir and Phoenix.

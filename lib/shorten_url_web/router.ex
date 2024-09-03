@@ -7,7 +7,8 @@ defmodule ShortenUrlWeb.Router do
 
   scope "/", ShortenUrlWeb do
     pipe_through :api
-    resources "/", ShortUrlController, except: [:new, :edit, :index, :update, :delete]
+    resources "/shorten-url", ShortUrlController, only: [:create]
+    resources "/", ShortUrlController, only: [:show]
   end
 
   # Enable LiveDashboard in development
