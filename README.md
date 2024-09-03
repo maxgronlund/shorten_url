@@ -100,16 +100,20 @@ Only two methods are needed:
 - `def create()`: Used to create a shortened URL. I added some error handling and handling of duplicates.
 
 ### Preparing for Production
-I abstracted the fetching of host and port into the `UrlHelper`. This way, it should work in production on whatever domain the app is deployed on, no matter the environment.
+I abstracted the fetching of host and port into the `UrlHelper`. This way, it work in production on whatever domain the app is deployed on, no matter the environment.
 
 ### Manual Testing
 Automated tests and TDD are great and make me work faster, but... there's always a but.
 I fired up Postman and tested it by hand. Yes, I found that I could crash the application by sending bad data and that some of the JSON wasn't formatted as expected.
+
 ### Test on localhost with curl
 ```
 curl -X POST http://localhost:4000/shorten-url \
 -H "Content-Type: application/json" \
 -d '{"url": "https://gist.github.com/aamikkelsenWH/0adb191e365f9e0ed3540e660a1d706d"}'
+```
+```
+curl -i localhost:4000/O-x2Mg
 ```
 
 ### Test on Gigalixir with curl
