@@ -11,7 +11,7 @@ defmodule ShortenUrl.EndpointsFixtures do
     {:ok, short_url} =
       attrs
       |> Enum.into(%{
-        url: "http://very-long-url.com",
+        url: "http://dr.dk",
         host_port: "localhost:4000"
       })
       |> ShortenUrl.Endpoints.find_or_create_short_url()

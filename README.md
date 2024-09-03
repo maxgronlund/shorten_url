@@ -20,6 +20,7 @@ I did a quick search on [hex.pm](https://hex.pm/packages?search=server&sort=rece
   - Strict design pattern
   - Comprehensive documentation
   - I have worked with Phoenix before
+  - Has an integrated persistance layer
 
 - **3. Raxx**
   - 800k downloads on hex.pm
@@ -34,10 +35,15 @@ I did a quick search on [hex.pm](https://hex.pm/packages?search=server&sort=rece
   - 31 contributors on GitHub
   - Chris McCord is one of the owners 😄
 
+-  **5. Persistance**
+  - Should I implement the persistance layer by myself and then use **Mnesia**, **ETS** or a **GenServer**
+
+
 Given the above, I decided to create a Phoenix server:
 - I'm familiar with Phoenix and know it as the most popular solution for rapid development.
 - Bandit and Cowboy are more like adapters. Although there might be less code initially, it could lead to many loose ends.
 - Raxx is tempting for its simplicity, but 5 years without any commits is a long time.
+
 
 So, without further consideration, I'm heading into the land of Phoenix.
 
@@ -62,7 +68,6 @@ Where **Endpoints** is the name of the scope used to handle DB access. The ratio
 <br>
 If I were to refactor this, I would name the application something other than `shorten_url` and the DB record something other than `short_url`. There are too many names that look too similar, but that's what it is for now.
 
-Yes, Phoenix has an option for interacting with a DB, and I chose to stick with the default Postgres database. To avoid conflicts with my local installations, I created a `compose.yml` file.
 
 ### Configuration
 I have only configured the dev environment with matching credentials for Postgres; the test environment works out of the box.
@@ -100,16 +105,26 @@ I abstracted the fetching of host and port into the `UrlHelper`. This way, it sh
 ### Manual Testing
 Automated tests and TDD are great and make me work faster, but... there's always a but.
 I fired up Postman and tested it by hand. Yes, I found that I could crash the application by sending bad data and that some of the JSON wasn't formatted as expected.
-### Test with curl
+### Test on localhost with curl
 ```
 curl -X POST http://localhost:4000/shorten-url \
 -H "Content-Type: application/json" \
--d '{"url": "http://very-long-url.com"}'
-
+-d '{"url": "https://gist.github.com/aamikkelsenWH/0adb191e365f9e0ed3540e660a1d706d"}'
 ```
+
+### Test on Gigalixir with curl
+```
+curl -X POST https://shortenurl.gigalixirapp.com/shorten-url \
+-H "Content-Type: application/json" \
+-d '{"url": "https://gist.github.com/aamikkelsenWH/0adb191e365f9e0ed3540e660a1d706d"}'
+```
+```
+curl -i http://shortenurl.gigalixirapp.com:80/jgdMbP
+```
+
 ### Conclusion
-I spent way more time than 5 hours—more like 10—but I got carried away with this fun little assignment.
-In my defense, it's been a year since I last worked with Elixir and Phoenix.
+I spent more time than 5 hours—more like 10—but I got carried away with this fun little assignment.
+In my defense, it's been a year since I last worked with Elixir and Phoenix and it was really fun.
 
 ### Further Development
 Why not have a little fun tomorow and implement some of the ideas for added features and some of my own
