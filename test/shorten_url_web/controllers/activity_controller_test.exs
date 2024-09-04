@@ -5,13 +5,12 @@ defmodule ShortenUrlWeb.ActivityControllerTest do
 
   alias ShortenUrl.Logs.Activity
 
-  @create_attrs %{
-    action: "some action"
-  }
-  @update_attrs %{
-    action: "some updated action"
-  }
-  @invalid_attrs %{action: nil}
+  # @create_attrs %{
+  #   action: "some action"
+  # }
+  # @update_attrs %{
+  #   action: "some updated action"
+  # }
 
   setup %{conn: conn} do
     {:ok, conn: put_req_header(conn, "accept", "application/json")}
@@ -24,12 +23,8 @@ defmodule ShortenUrlWeb.ActivityControllerTest do
     end
   end
 
-
-
-
-
-  defp create_activity(_) do
-    activity = activity_fixture()
-    %{activity: activity}
-  end
+  # defp create_activity(_) do
+  #   activity = activity_fixture()
+  #   %{activity: activity}
+  # end
 end

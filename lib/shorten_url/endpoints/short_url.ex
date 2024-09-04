@@ -10,6 +10,10 @@ defmodule ShortenUrl.Endpoints.ShortUrl do
     field :url, :string
     field :short_url, :string
 
+    has_many :activities, ShortenUrl.Logs.Activity,
+      foreign_key: :short_url_id,
+      on_replace: :delete
+
     timestamps(type: :utc_datetime)
   end
 
@@ -26,6 +30,13 @@ defmodule ShortenUrl.Endpoints.ShortUrl do
     |> cast(attrs, [:short_url, :url])
     |> validate_required([:short_url, :url])
     |> unique_constraint(:url)
+    |> put_assoc(:activities, [build_activity()])
+  end
+
+  defp build_activity() do
+    %ShortenUrl.Logs.Activity{
+      action: "create"
+    }
   end
 
   defp generate_unique_shorten_url(host_port, length \\ 6) do

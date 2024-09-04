@@ -12,7 +12,7 @@ defmodule ShortenUrl.EndpointsTest do
 
     test "get_short_url!/:short_url returns the long_url with given short_url" do
       short_url = short_url_fixture(%{url: "http://another-very-long-url.com"})
-      assert Endpoints.get_short_url!(short_url.short_url) == short_url
+      assert Endpoints.get_short_url!(short_url.short_url).id == short_url.id
     end
 
     test "find_or_create_short_url/1 with valid data creates a short_url" do
@@ -30,7 +30,7 @@ defmodule ShortenUrl.EndpointsTest do
       assert {:ok, %ShortUrl{} = found_short_url} =
                Endpoints.find_or_create_short_url(%{url: url, host_port: "localhost:4000"})
 
-      assert short_url == found_short_url
+      assert short_url.id == found_short_url.id
     end
 
     test "find_or_create_short_url/1 with invalid data returns error changeset" do

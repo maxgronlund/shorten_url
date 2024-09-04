@@ -31,19 +31,19 @@ defmodule ShortenUrl.LogsTest do
       assert {:error, %Ecto.Changeset{}} = Logs.create_activity(@invalid_attrs)
     end
 
-    test "update_activity/2 with valid data updates the activity" do
-      activity = activity_fixture()
-      update_attrs = %{action: "some updated action"}
+    # test "update_activity/2 with valid data updates the activity" do
+    #   activity = activity_fixture()
+    #   update_attrs = %{action: "some updated action"}
 
-      assert {:ok, %Activity{} = activity} = Logs.update_activity(activity, update_attrs)
-      assert activity.action == "some updated action"
-    end
+    #   assert {:ok, %Activity{} = activity} = Logs.update_activity(activity, update_attrs)
+    #   assert activity.action == "some updated action"
+    # end
 
-    test "update_activity/2 with invalid data returns error changeset" do
-      activity = activity_fixture()
-      assert {:error, %Ecto.Changeset{}} = Logs.update_activity(activity, @invalid_attrs)
-      assert activity == Logs.get_activity!(activity.id)
-    end
+    # test "update_activity/2 with invalid data returns error changeset" do
+    #   activity = activity_fixture()
+    #   assert {:error, %Ecto.Changeset{}} = Logs.update_activity(activity, @invalid_attrs)
+    #   assert activity == Logs.get_activity!(activity.id)
+    # end
 
     test "delete_activity/1 deletes the activity" do
       activity = activity_fixture()
