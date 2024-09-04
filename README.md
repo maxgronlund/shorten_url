@@ -1,7 +1,7 @@
 # Creating a Service for Shortening URLs
 A quick implementation of the [Wise Home Assignment](https://gist.github.com/aamikkelsenWH/0adb191e365f9e0ed3540e660a1d706d)
 <br>
-I did a quick search on [hex.pm](https://hex.pm/packages?search=server&sort=recent_downloads) and read up on some of the options.
+I did a quick search on [hex.pm](https://hex.pm/packages?search=server&sort=recent_downloads) for servers and read up on some of the options.
 
 ### Implementation Considerations:
 - **1. DIY Server based on Cowboy**
@@ -12,6 +12,7 @@ I did a quick search on [hex.pm](https://hex.pm/packages?search=server&sort=rece
   - Documentation link from hex.pm gave a [404](exdocs.pm/cowboy/)
   - [Getting started](https://ninenines.eu/docs/en/cowboy/2.12/guide/getting_started/) guide is for an Erlang application
   - I have worked with Cowboy before
+  - Erlang interface
 
 - **2. Phoenix Solution**
   - 3.5 million downloads on hex.pm
@@ -36,11 +37,11 @@ I did a quick search on [hex.pm](https://hex.pm/packages?search=server&sort=rece
   - Chris McCord is one of the owners 😄
 
 -  **5. Persistance**
-  - Should I implement the persistance layer by myself and then use **Mnesia**, **ETS** or a **GenServer**
+  - Should I implement the persistance layer by myself and then use **Mnesia**, **ETS** a **GenServer**, or go with **Ecto**
 
 
 Given the above, I decided to create a Phoenix server:
-- I'm familiar with Phoenix and know it as the most popular solution for rapid development.
+- I'm familiar with Phoenix and know it as the most popular solution for rapid development of webservers.
 - Bandit and Cowboy are more like adapters. Although there might be less code initially, it could lead to many loose ends.
 - Raxx is tempting for its simplicity, but 5 years without any commits is a long time.
 
@@ -70,7 +71,7 @@ If I were to refactor this, I would name the application something other than `s
 
 
 ### Configuration
-I have only configured the dev environment with matching credentials for Postgres; the test environment works out of the box.
+I have only configured the dev environment with matching credentials for Postgres; the test environment works out of the box, and so did the production on Gigalixir.
 
 ### Getting the App Up and Running
 ```bash
@@ -87,8 +88,8 @@ $ mix test
 That gave me an overview of where to start. I decided to create an inside-out implementation of the code from the endpoints.
 
 ### Routing
-There are a few things I changed. Phoenix likes to put the API behind a path like `localhost:4000/api/SOME_PATH`, but I changed the code so the root points to the API.
-There is a very nice [LiveDashboard](http://localhost:4000/dev/dashboard/home), so I decided to keep it as the frosting on the cake, but authorization is missing. There is a note in the `routes.ex` file.
+There are a few things I changed. Phoenix likes to put the API behind a path like `localhost:4000/api/SOME_PATH`, I changed that so the root points to the API.
+There is a very nice [LiveDashboard](http://localhost:4000/dev/dashboard/home), so I decided to keep it as the frosting on the cake<br>,the authorization is missing and it is only accessible in development. There is a note about that in the `routes.ex` file.
 
 ### Endpoint
 The interface between the controllers and the Repo. I removed unnecessary methods and created a new method `find_or_create_short_url`.
