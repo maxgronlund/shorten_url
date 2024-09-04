@@ -8,6 +8,7 @@ defmodule ShortenUrlWeb.Router do
   scope "/", ShortenUrlWeb do
     pipe_through :api
     resources "/shorten-url", ShortUrlController, only: [:create]
+    resources "/activities", ActivityController, only: [:index]
     resources "/", ShortUrlController, only: [:show]
   end
 
